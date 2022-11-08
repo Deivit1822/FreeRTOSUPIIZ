@@ -7,7 +7,7 @@
 
 //variables
 static const int led_pin = 33;
-volatile int valor = 0;
+int valor = 0;
 
 bool state= LOW;
 
