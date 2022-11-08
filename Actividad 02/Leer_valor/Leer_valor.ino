@@ -41,8 +41,7 @@ void LedTask(void *parameter) {
 // Main 
 
 void setup() {
-
-  // Serial lento para poder visualizar 
+ 
   Serial.begin(9600);
 
   // Retardo antes de iniciar 
@@ -53,8 +52,6 @@ void setup() {
   // Print self priority
   Serial.print("Configuracion y ciclo de tareas corriendo ");
   Serial.println(xPortGetCoreID());
-  //Serial.print(" con prioridad ");
-  //Serial.println(uxTaskPriorityGet(NULL));
 
   xTaskCreatePinnedToCore(ReadTask,
                           "Tarea 1",
