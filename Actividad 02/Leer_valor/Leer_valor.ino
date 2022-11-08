@@ -17,12 +17,11 @@ const char msg[] = "Mensaje inicial --- Actividad 02 ---";
 
 // Tarea 1
 void ReadTask(void *parameter) {
-  while(1){
-  while(Serial.available()==0){
-    
+  while(true){
+  while(Serial.available()==0){  
   }
   if(Serial.available() > 0){
-  valor=Serial.read();
+  valor=Serial.parseInt();
   Serial.println(" Num= "+ String(valor));
     }
   }
@@ -53,7 +52,7 @@ void setup() {
 
   // Print self priority
   Serial.print("Configuracion y ciclo de tareas corriendo ");
-  Serial.print(xPortGetCoreID());
+  Serial.println(xPortGetCoreID());
   //Serial.print(" con prioridad ");
   //Serial.println(uxTaskPriorityGet(NULL));
 
