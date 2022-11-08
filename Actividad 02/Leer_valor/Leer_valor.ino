@@ -7,7 +7,9 @@
 
 //variables
 static const int led_pin = 33;
-int valor=0;
+volatile int valor = 0;
+
+bool state= LOW;
 
 // Mensaje inicial 
 const char msg[] = "Mensaje inicial --- Actividad 02 ---";
@@ -18,8 +20,6 @@ const char msg[] = "Mensaje inicial --- Actividad 02 ---";
 // Tarea 1
 void ReadTask(void *parameter) {
   while(true){
-  while(Serial.available()==0){  
-  }
   if(Serial.available() > 0){
   valor=Serial.parseInt();
   Serial.println(" Num= "+ String(valor));
@@ -30,10 +30,9 @@ void ReadTask(void *parameter) {
 // Tarea 2
 void LedTask(void *parameter) {
   while(1) {
-    digitalWrite(led_pin, HIGH);
-    vTaskDelay(valor / portTICK_PERIOD_MS);
-    digitalWrite(led_pin, LOW);
-    vTaskDelay(valor / portTICK_PERIOD_MS);
+    digitalWrite(led_pin, state);
+    vTaskDelay(valor * portTICK_PERIOD_MS);
+    state = !state;
   }
 }
 
@@ -43,7 +42,8 @@ void LedTask(void *parameter) {
 void setup() {
  
   Serial.begin(9600);
-
+  pinMode(led_pin,OUTPUT);
+  
   // Retardo antes de iniciar 
   vTaskDelay(1000 / portTICK_PERIOD_MS);
   Serial.println();
